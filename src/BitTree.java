@@ -1,4 +1,6 @@
-import java.util.NoSuchElementException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 /**
  * A tree data structure intended to store mappings from bits to values.
@@ -59,6 +61,37 @@ public class BitTree {
       throw new Exception("get: invalid length");
     }
     return get(bits, 0, root);
+  }
+
+  /**
+   * Prints out the contents of the tree in CSV format. For example, one row of our braille tree
+   * will be “101100,M” (without the quotation marks). 
+   */
+  public void dump(PrintWriter pen) {
+    dump(pen, root, "");
+  }
+
+  /**
+   * Reads a series of lines of the form bits, value and store them in the tree.
+   */
+  public void load(InputStream source) {
+    Scanner s = new Scanner(source);
+    PrintWriter err = new PrintWriter(System.err, true);
+
+    while (s.hasNextLine()) {
+      String line = s.nextLine();
+      String[] splitLine = line.split(",");
+      String bits = splitLine[0];
+      String value = splitLine[1];
+      
+      try {
+        this.set(bits, value);
+      } catch (Exception e) {
+        err.println("loading failed for line " + line + " : " + e.getMessage());
+      }
+    }
+
+    s.close();
   }
 
   // +---------+------------------------------------------------------------------------------------
@@ -137,5 +170,20 @@ public class BitTree {
     }
   }
 
+  /**
+   * Prints out the contents of the tree in CSV format through traversing the tree via tail recursion.
+   */
+  void dump(PrintWriter pen, BitTreeNode subtree, String bitsSoFar) {
+    // Base cases
+    if (subtree == null) {
+      return;
+    }
+    if (subtree instanceof BitTreeLeaf) {
+      pen.println(bitsSoFar + "," + subtree.value);
+    }
 
+    // Recursive cases
+    dump(pen, subtree.left, bitsSoFar + "0");
+    dump(pen, subtree.right, bitsSoFar + "1");
+  }
 }
