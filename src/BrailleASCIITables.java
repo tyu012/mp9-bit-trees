@@ -1,3 +1,8 @@
+/**
+ * Static methods for converting between binary Braille, ASCII, and Unicode Braille.
+ * 
+ * @author Tim Yu
+ */
 public class BrailleASCIITables {
   /**
    * A bit tree for converting ASCII to Braille bits (using the cell numbering method).
@@ -19,7 +24,12 @@ public class BrailleASCIITables {
    * character.
    */
   public static String toBraille(char letter) throws Exception {
-    return asciiToBrailleTree.get(Integer.toBinaryString((int) letter));
+    String binaryString = Integer.toBinaryString((int) letter);
+    // our tree handles binary strings of length 8
+    if (binaryString.length() < 8) {
+      binaryString = "0".repeat(8 - binaryString.length()) + binaryString;
+    }
+    return asciiToBrailleTree.get(binaryString);
   }
 
   /**
@@ -33,7 +43,7 @@ public class BrailleASCIITables {
    * Converts a string of bits representing a braille character to the corresponding Unicode braille
    * character for those bits. This method only supports six-bit braille characters.
    */
-  public String toUnicode(String bits) throws Exception {
+  public static String toUnicode(String bits) throws Exception {
     return new String(Character.toChars(Integer.parseInt(brailleToUnicodeTree.get(bits), 16)));
   }
 }

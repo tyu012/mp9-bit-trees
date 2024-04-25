@@ -116,7 +116,7 @@ public class BitTree {
     }
 
     // Recursive cases
-    switch (Integer.valueOf(bits.charAt(i))) {
+    switch (bits.charAt(i) - '0') {
       case 0:
         return get(bits, i + 1, subtree.left);
       case 1:
@@ -138,21 +138,20 @@ public class BitTree {
 
     if (i >= bits.length()) {
       subtree.value = value;
+      return;
     }
 
     // Recursive cases
 
     // Determine traversal direction
     boolean leftTraversal;
-    switch (Integer.valueOf(bits.charAt(i))) {
-      case 0:
-        leftTraversal = true;
-        break;
-      case 1:
-        leftTraversal = false;
-        break;
-      default:
-        throw new Exception("set: invalid bit");
+    int currentBit = (int) bits.charAt(i) - '0';
+    if (currentBit == 0) {
+      leftTraversal = true;
+    } else if (currentBit == 1) {
+      leftTraversal = false;
+    } else {
+      throw new Exception("set: invalid bit " + currentBit);
     }
 
     // Determine if we need to create a tree node before we traverse

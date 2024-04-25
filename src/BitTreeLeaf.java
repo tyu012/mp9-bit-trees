@@ -1,5 +1,7 @@
 /**
  * A "leaf" of a BitTree, which represents a mapping of a bit sequence to string.
+ * 
+ * @author Tim Yu
  */
 public class BitTreeLeaf extends BitTreeNode {
   /**
