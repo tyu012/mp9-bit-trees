@@ -1,18 +1,27 @@
-## Getting Started
+# Mini-Project 9: Bit trees and Braille
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Author
+Tim Yu
 
-## Folder Structure
+## GitHub
+https://github.com/tyu012/mp9-bit-trees
 
-The workspace contains two folders by default, where:
+## Purpose
+To use bit trees to convert between ASCII, a binary representation of braille,
+and Unicode Braille characters.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## How to run
+```
+java BrailleASCII <targetCharSet> <source>
+```
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+where `<targetCharSet>` is the target character set:
+* `braille` for converting from ASCII to binary Braille
+* `ascii` for converting from binary Braille to ASCII
+* `unicode` for converting from ASCII to Unicode Braille
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+and `<source>` is the characters you want to convert.
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Acknowledgements
+Java® Platform, Standard Edition & Java Development Kit Version 17 API Specification:
+* https://docs.oracle.com/en/java/javase/17/docs/api/index.html
